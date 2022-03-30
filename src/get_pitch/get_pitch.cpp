@@ -25,6 +25,7 @@ Usage:
     get_pitch --version
 
 Options:
+    -m FLOAT, --umaxnorm FLOAT  Umbral de el maximo de la autocorrelacion normalizada [default: 0.5]
     -h, --help  Show this screen
     --version   Show the version of the project
 
@@ -33,6 +34,7 @@ Arguments:
     output-txt  Output file: ASCII file with the result of the estimation:
                     - One line per frame with the estimated f0
                     - If considered unvoiced, f0 must be set to f0 = 0
+    
 )";
 
 int main(int argc, const char *argv[]) {
@@ -46,6 +48,7 @@ int main(int argc, const char *argv[]) {
 
 	std::string input_wav = args["<input-wav>"].asString();
 	std::string output_txt = args["<output-txt>"].asString();
+  float umaxnorm = std::stof(args["--umaxnorm"].asString());
 
   // Read input sound file
   unsigned int rate;
@@ -59,7 +62,7 @@ int main(int argc, const char *argv[]) {
   int n_shift = rate * FRAME_SHIFT;
 
   // Define analyzer
-  PitchAnalyzer analyzer(n_len, rate, PitchAnalyzer::HAMMING, 50, 500);
+  PitchAnalyzer analyzer(n_len, rate, PitchAnalyzer::RECT, 50, 500, umaxnorm);
 
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
