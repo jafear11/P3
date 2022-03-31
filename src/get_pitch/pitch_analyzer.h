@@ -47,6 +47,7 @@ namespace upc {
     bool unvoiced(float pot, float r1norm, float rmaxnorm) const;
 
     void clip_center(std::vector<float>  &x, float xth) const;
+    void normalize(std::vector<float> &x) const;
 
   public:
     PitchAnalyzer(	unsigned int fLen,			///< Frame length in samples

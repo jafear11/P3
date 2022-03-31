@@ -74,6 +74,22 @@ namespace upc
     }
   }
 
+  void PitchAnalyzer::normalize(vector<float> &x) const
+  {
+    float max = 0;
+    for (int i = 0; i < x.size(); i++)
+    {
+      if (x[i] > max)
+      {
+        max = x[i];
+      }
+    }
+    for (int i = 0; i < x.size(); i++)
+    {
+      x[i] /= max;
+    }
+  }
+
   void PitchAnalyzer::set_f0_range(float min_F0, float max_F0)
   {
     npitch_min = (unsigned int)samplingFreq / max_F0;
@@ -93,9 +109,11 @@ namespace upc
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
     bool unvoiced = true;
-    if (rmaxnorm > umaxnorm)
+    // if (rmaxnorm > umaxnorm || (r1norm / rmaxnorm) > 0.1)
+    if ((rmaxnorm > umaxnorm || r1norm > 0.95))
       unvoiced = false;
-
+    if (pot < -15)
+      unvoiced = true;
     return unvoiced;
   }
 
@@ -107,6 +125,8 @@ namespace upc
     // Window input frame
     for (unsigned int i = 0; i < x.size(); ++i)
       x[i] *= window[i];
+    clip_center(x, 0.01);
+    normalize(x);
 
     vector<float> r(npitch_max);
 
