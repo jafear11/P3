@@ -7,20 +7,6 @@
 using namespace std;
 
 /// Name space of UPC
-<<<<<<< HEAD
-namespace upc {
-  void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
-
-    for (unsigned int l = 0; l < r.size(); ++l) {
-  		/// \TODO Compute the autocorrelation r[l]
-      /// \FET Calculada l'autocorrelació
-      r[l]=0;
-      for (unsigned int n=l; n<x.size(); n++){
-        r[l]+=x[n]*x[n-l];
-      }
-
-      r[l]=r[l]/x.size();
-=======
 namespace upc
 {
   void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const
@@ -41,7 +27,6 @@ namespace upc
         r[l] += x[n] * x[n - l];
       }
       r[l] /= x.size();
->>>>>>> fba9f2e0a18e287952ef1ef3944cdc5599bfdd80
     }
 
     if (r[0] == 0.0F) // to avoid log() and divide zero
@@ -60,14 +45,10 @@ namespace upc
     case HAMMING:
       /// \TODO Implement the Hamming window
       window.assign(frameLen, 1);
-<<<<<<< HEAD
-
-=======
       for (unsigned int i = 0; i < frameLen; i++)
       {
         window[i] = 0.54 + 0.46 * cos(2 * 3.1416 * i);
       }
->>>>>>> fba9f2e0a18e287952ef1ef3944cdc5599bfdd80
       break;
     case RECT:
     default:
