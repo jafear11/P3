@@ -94,16 +94,12 @@ namespace upc
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-<<<<<<< HEAD
-    return false;
-=======
     int alpha1 = -70;
     bool voiced = false;
     if (pot < alpha1)
       voiced = true;
 
     return voiced;
->>>>>>> fba9f2e0a18e287952ef1ef3944cdc5599bfdd80
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> &x) const
@@ -128,17 +124,6 @@ namespace upc
     ///    - The first negative value of the autocorrelation.
     ///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
-<<<<<<< HEAD
-	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-
-  /// \Màxim localitzat
-    for (iR = iRMax = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++)  {
-      if (*iR > *iRMax){
-        iRMax = iR;
-      }
-    }
-
-=======
     /// In either case, the lag should not exceed that of the minimum value of the pitch.
     /// \DONE Maxim localitzat
     for (iR = iRMax = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++)
@@ -148,21 +133,13 @@ namespace upc
         iRMax = iR;
       }
     }
->>>>>>> fba9f2e0a18e287952ef1ef3944cdc5599bfdd80
     unsigned int lag = iRMax - r.begin();
 
     float pot = 10 * log10(r[0]);
 
-<<<<<<< HEAD
-
-    //You can print these (and other) features, look at them using wavesurfer
-    //Based on that, implement a rule for unvoiced
-    //change to #if 1 and compile
-=======
     // You can print these (and other) features, look at them using wavesurfer
     // Based on that, implement a rule for unvoiced
     // change to #if 1 and compile
->>>>>>> fba9f2e0a18e287952ef1ef3944cdc5599bfdd80
 #if 0
     if (r[0] > 0.0F)
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
