@@ -38,7 +38,7 @@ namespace upc
       r[l] = 0;
       for (unsigned int n = l; n < x.size(); n++)
       {
-        r[l] = x[n] * x[n - l];
+        r[l] += x[n] * x[n - l];
       }
       r[l] /= x.size();
 >>>>>>> fba9f2e0a18e287952ef1ef3944cdc5599bfdd80
@@ -76,6 +76,39 @@ namespace upc
     }
   }
 
+  void PitchAnalyzer::clip_center(vector<float> &x, float xth) const
+  {
+    for (int i = 0; i < x.size(); i++)
+    {
+      if (abs(x[i]) < xth)
+      {
+        x[i] = 0;
+      }
+      else if (x[i] < 0)
+      {
+        x[i] += xth;
+      }
+      else
+        x[i] += xth;
+    }
+  }
+
+  void PitchAnalyzer::normalize(vector<float> &x) const
+  {
+    float max = 0;
+    for (int i = 0; i < x.size(); i++)
+    {
+      if (x[i] > max)
+      {
+        max = x[i];
+      }
+    }
+    for (int i = 0; i < x.size(); i++)
+    {
+      x[i] /= max;
+    }
+  }
+
   void PitchAnalyzer::set_f0_range(float min_F0, float max_F0)
   {
     npitch_min = (unsigned int)samplingFreq / max_F0;
@@ -94,12 +127,13 @@ namespace upc
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    int alpha1 = -70;
-    bool voiced = false;
-    if (pot < alpha1)
-      voiced = true;
-
-    return voiced;
+    bool unvoiced = true;
+    // if (rmaxnorm > umaxnorm || (r1norm / rmaxnorm) > 0.1)
+    if ((rmaxnorm > umaxnorm || r1norm > 0.95))
+      unvoiced = false;
+    if (pot < -15)
+      unvoiced = true;
+    return unvoiced;
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> &x) const
@@ -110,6 +144,8 @@ namespace upc
     // Window input frame
     for (unsigned int i = 0; i < x.size(); ++i)
       x[i] *= window[i];
+    clip_center(x, 0.01);
+    normalize(x);
 
     vector<float> r(npitch_max);
 
