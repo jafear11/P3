@@ -37,6 +37,33 @@ Arguments:
     
 )";
 
+void median_filter(vector<float> &pitches)
+{
+  vector<float> sorted = pitches;
+  vector<float> sorting = pitches;
+  float a;
+  for (int i = 1; i < pitches.size() - 1; i++)
+  {
+    sorting[0] = pitches[i - 1];
+    sorting[1] = pitches[i];
+    sorting[2] = pitches[i + 1];
+    for (int j = 0; j < 2; j++)
+    {
+      for (int k = 0; k < 2; k++)
+      {
+        if (sorting[k] > sorting[k + 1])
+        {
+          a = sorting[k + 1];
+          sorting[k + 1] = sorting[k];
+          sorting[k] = a;
+        }
+      }
+    }
+    sorted[i] = sorting[1];
+  }
+  pitches = sorted;
+}
+
 int main(int argc, const char *argv[])
 {
   /// \TODO
@@ -82,7 +109,7 @@ int main(int argc, const char *argv[])
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
-
+  median_filter(f0);
   // Write f0 contour into the output file
   ofstream os(output_txt);
   if (!os.good())
@@ -97,15 +124,4 @@ int main(int argc, const char *argv[])
   os << 0 << '\n'; // pitch at t=Dur
 
   return 0;
-}
-
-void median_filter(vector<float> &x)
-{
-  for (int i = 1; i < x.size(); i++)
-  {
-    vector<float> sort = x;
-    for (int j = i - 1; j < i + 1; i++)
-    {
-    }
-  }
 }

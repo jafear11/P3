@@ -47,7 +47,8 @@ namespace upc
       window.assign(frameLen, 1);
       for (unsigned int i = 0; i < frameLen; i++)
       {
-        window[i] = 0.54 + 0.46 * cos(2 * 3.1416 * i);
+        //window[i] = 0.54 + 0.46 * cos(2 * 3.1416 * i);
+        window[i]=0.54 - 0.46*cos(2*3.1416*(i/frameLen));
       }
       break;
     case RECT:
@@ -109,7 +110,6 @@ namespace upc
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
     bool unvoiced = true;
-    // if (rmaxnorm > umaxnorm || (r1norm / rmaxnorm) > 0.1)
     if ((rmaxnorm > umaxnorm || r1norm > 0.95))
       unvoiced = false;
     if (pot < -15)
