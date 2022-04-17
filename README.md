@@ -43,7 +43,8 @@ Ejercicios básicos
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
-**float PitchAnalyzer::compute_pitch(vector<float> &x) const
+	
+`float PitchAnalyzer::compute_pitch(vector<float> &x) const
   {
     if (x.size() != frameLen)
       return -1.0F;
@@ -81,10 +82,11 @@ Ejercicios básicos
     else
       return (float)samplingFreq / (float)lag;
   }
-}**
+}`
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
-**bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
+	
+`bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
   {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
@@ -97,7 +99,7 @@ Ejercicios básicos
     if (pot < -15)
       unvoiced = true;
     return unvoiced;
-  }**
+  }`
 
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del estimador de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
