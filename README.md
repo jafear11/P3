@@ -44,6 +44,7 @@ void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) co
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
 	
+	```
 float PitchAnalyzer::compute_pitch(vector<float> &x) const
   {
     if (x.size() != frameLen)
@@ -83,9 +84,9 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
       return (float)samplingFreq / (float)lag;
   }
 }
-	
+```	
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
-	
+```	
 bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
   {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
@@ -100,7 +101,7 @@ bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
       unvoiced = true;
     return unvoiced;
   }
-
+```
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del estimador de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
@@ -147,7 +148,71 @@ Ejercicios de ampliación
   Entre las posibles mejoras, puede escoger una o más de las siguientes:
 
   * Técnicas de preprocesado: filtrado paso bajo, diezmado, *center clipping*, etc.
+		  ```
+void PitchAnalyzer::clip_center(vector<float> &x, float xth) const
+  {
+    for (int i = 0; i < x.size(); i++)
+    {
+      if (abs(x[i]) < xth)
+      {
+        x[i] = 0;
+      }
+      else if (x[i] < 0)
+      {
+        x[i] += xth;
+      }
+      else
+        x[i] += xth;
+    }
+  }
+void PitchAnalyzer::normalize(vector<float> &x) const
+  {
+    float max = 0;
+    for (int i = 0; i < x.size(); i++)
+    {
+      if (x[i] > max)
+      {
+        max = x[i];
+      }
+    }
+    for (int i = 0; i < x.size(); i++)
+    {
+      x[i] /= max;
+    }
+  }
+				 ```
+				 
   * Técnicas de postprocesado: filtro de mediana, *dynamic time warping*, etc.
+				 
+				 ```
+void median_filter(vector<float> &pitches)
+{
+  vector<float> sorted = pitches;
+  vector<float> sorting = pitches;
+  float a;
+  for (int i = 1; i < pitches.size() - 1; i++)
+  {
+    sorting[0] = pitches[i - 1];
+    sorting[1] = pitches[i];
+    sorting[2] = pitches[i + 1];
+    for (int j = 0; j < 2; j++)
+    {
+      for (int k = 0; k < 2; k++)
+      {
+        if (sorting[k] > sorting[k + 1])
+        {
+          a = sorting[k + 1];
+          sorting[k + 1] = sorting[k];
+          sorting[k] = a;
+        }
+      }
+    }
+    sorted[i] = sorting[1];
+  }
+  pitches = sorted;
+}
+	```
+
   * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*
     (AMDF), etc.
   * Optimización **demostrable** de los parámetros que gobiernan el estimador, en concreto, de los que
