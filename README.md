@@ -14,15 +14,12 @@ Ejercicios básicos
   `get_pitch`.
 
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
-   
+   ```
 void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const
   {
 
     for (unsigned int l = 0; l < r.size(); ++l)
     {
-      /// \TODO Compute the autocorrelation r[l]
-      /** \DONE Autocorrelacion calculada
-       */
       r[l] = 0;
       for (unsigned int n = l; n < x.size(); n++)
       {
@@ -33,7 +30,9 @@ void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) co
 
     if (r[0] == 0.0F) // to avoid log() and divide zero
       r[0] = 1e-10;
-  }**
+  }
+	```
+	
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
@@ -50,7 +49,6 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
     if (x.size() != frameLen)
       return -1.0F;
 
-    // Window input frame
     for (unsigned int i = 0; i < x.size(); ++i)
       x[i] *= window[i];
     clip_center(x, 0.01);
@@ -58,7 +56,6 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
 
     vector<float> r(npitch_max);
 
-    // Compute correlation
     autocorrelation(x, r);
 
     vector<float>::const_iterator iR = r.begin(), iRMax = iR;
@@ -86,14 +83,10 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
 }
 ```	
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
+	
 ```	
 bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
   {
-    /// \TODO Implement a rule to decide whether the sound is voiced or not.
-    /// * You can use the standard features (pot, r1norm, rmaxnorm),
-    ///   or compute and use other ones.
-    /** \DONE Criterio de sonoridad completado
-     */
     bool unvoiced = true;
     if ((rmaxnorm > umaxnorm || r1norm > 0.95))
       unvoiced = false;
@@ -101,7 +94,9 @@ bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
       unvoiced = true;
     return unvoiced;
   }
+		  
 ```
+		  
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del estimador de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
