@@ -96,7 +96,8 @@ int main(int argc, const char *argv[])
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
-
+  /** \DONE Preprocesado realizado
+   */
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
   vector<float> f0;
@@ -109,6 +110,8 @@ int main(int argc, const char *argv[])
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
+  /** \DONE Filtro de mediana implementado
+   */
   median_filter(f0);
   // Write f0 contour into the output file
   ofstream os(output_txt);

@@ -16,10 +16,6 @@ namespace upc
     {
       /// \TODO Compute the autocorrelation r[l]
       /** \DONE Autocorrelacion calculada
-       * # Titulo grande
-       * ## Subtitulo
-       * - Lista 1
-       * - Lista 2
        */
       r[l] = 0;
       for (unsigned int n = l; n < x.size(); n++)
@@ -47,8 +43,8 @@ namespace upc
       window.assign(frameLen, 1);
       for (unsigned int i = 0; i < frameLen; i++)
       {
-        //window[i] = 0.54 + 0.46 * cos(2 * 3.1416 * i);
-        window[i]=0.54 - 0.46*cos(2*3.1416*(i/frameLen));
+        // window[i] = 0.54 + 0.46 * cos(2 * 3.1416 * i);
+        window[i] = 0.54 - 0.46 * cos(2 * 3.1416 * (i / frameLen));
       }
       break;
     case RECT:
@@ -109,6 +105,8 @@ namespace upc
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
+    /** \DONE Criterio de sonoridad completado
+     */
     bool unvoiced = true;
     if ((rmaxnorm > umaxnorm || r1norm > 0.95))
       unvoiced = false;
