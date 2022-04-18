@@ -86,18 +86,8 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
 ```	
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 	
-```	
-bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
-  {
-    bool unvoiced = true;
-    if ((rmaxnorm > umaxnorm || r1norm > 0.95))
-      unvoiced = false;
-    if (pot < -15)
-      unvoiced = true;
-    return unvoiced;
-  }
-		  
-```
+<img width="608" alt="image" src="https://user-images.githubusercontent.com/100561275/163794798-538804e4-076b-46a1-9321-28e4f70f607d.png">
+
 		  
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del estimador de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
