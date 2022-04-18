@@ -42,13 +42,14 @@ Ejercicios básicos
 		(r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
 		autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
 
-<img src="Power and signal.png" width="640" align="center"
+<img src="Power and signal.png" width="640" align="center">
 
       - Use el estimador de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos estimadores.
+		
+<img src="Estimado vs wavesurfer.jpg" width="640" align="center">
      
-	<img src="Estimado vs wavesurfer.jpg" width="640" align="center">
 		  
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
