@@ -120,7 +120,8 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 		  
-<img src="P3/resultats.png" width="734" align="center">
+<img src="https://github.com/jafear11/P3/blob/master/resultats.png" width="640" align="center">
+
 	
 Ejercicios de ampliación
 ------------------------
