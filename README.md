@@ -53,10 +53,8 @@ Ejercicios básicos
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos estimadores.
      
-		Aunque puede usar el propio Wavesurfer para obtener la representación, se valorará
-	 	el uso de alternativas de mayor calidad (particularmente Python).
+	<img src="Estimado vs wavesurfer.jpg" width="640" align="center">
 		  
-		  INSETAAR GRAFICA!!
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
