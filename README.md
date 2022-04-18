@@ -19,11 +19,8 @@ Ejercicios básicos
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
-
-	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
-	 hacerlo. Se valorará la utilización de la biblioteca matplotlib de Python.
-	
-	INSERTAAAAR !!!
+	 
+<img src="Autocorrelacion_vs_señal.jpg" width="640" align="center">
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
@@ -63,9 +60,9 @@ Ejercicios básicos
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
-	`pitch_db/train`..
-		  
-<img src="Captura de pantalla 2022-04-18 a les 12.26.37.png" width="640" align="center">
+
+<img src="Resultado final base de datos.jpg" width="640" align="center">		  
+
 
 	
 Ejercicios de ampliación
