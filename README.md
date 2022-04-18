@@ -27,8 +27,9 @@ Ejercicios básicos
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
+     <img src="Compute pitch.jpg" width="640" align="center">
 	
-	```
+	
 float PitchAnalyzer::compute_pitch(vector<float> &x) const
   {
     if (x.size() != frameLen)
@@ -107,7 +108,7 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
 
 	
 Ejercicios de ampliación
-------------------------
+
 
 - Usando la librería `docopt_cpp`, modifique el fichero `get_pitch.cpp` para incorporar los parámetros del
   estimador a los argumentos de la línea de comandos.
@@ -118,8 +119,7 @@ Ejercicios de ampliación
 
   * Inserte un *pantallazo* en el que se vea el mensaje de ayuda del programa y un ejemplo de utilización
     con los argumentos añadidos.
-	
-	FER DOCOOOPT!!!!
+  <img src="Help del docopt.jpg" width="640" align="center">
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de estimación
   de pitch.
@@ -127,70 +127,14 @@ Ejercicios de ampliación
   Entre las posibles mejoras, puede escoger una o más de las siguientes:
 
   * Técnicas de preprocesado: filtrado paso bajo, diezmado, *center clipping*, etc.
-		  ```
-void PitchAnalyzer::clip_center(vector<float> &x, float xth) const
-  {
-    for (int i = 0; i < x.size(); i++)
-    {
-      if (abs(x[i]) < xth)
-      {
-        x[i] = 0;
-      }
-      else if (x[i] < 0)
-      {
-        x[i] += xth;
-      }
-      else
-        x[i] += xth;
-    }
-  }
-void PitchAnalyzer::normalize(vector<float> &x) const
-  {
-    float max = 0;
-    for (int i = 0; i < x.size(); i++)
-    {
-      if (x[i] > max)
-      {
-        max = x[i];
-      }
-    }
-    for (int i = 0; i < x.size(); i++)
-    {
-      x[i] /= max;
-    }
-  }
-				 ```
+<img src="Center clipping.jpg" width="640" align="center">
+  
+<img src="Normalización.jpg" width="640" align="center">
+
 				 
   * Técnicas de postprocesado: filtro de mediana, *dynamic time warping*, etc.
-				 
-				 ```
-void median_filter(vector<float> &pitches)
-{
-  vector<float> sorted = pitches;
-  vector<float> sorting = pitches;
-  float a;
-  for (int i = 1; i < pitches.size() - 1; i++)
-  {
-    sorting[0] = pitches[i - 1];
-    sorting[1] = pitches[i];
-    sorting[2] = pitches[i + 1];
-    for (int j = 0; j < 2; j++)
-    {
-      for (int k = 0; k < 2; k++)
-      {
-        if (sorting[k] > sorting[k + 1])
-        {
-          a = sorting[k + 1];
-          sorting[k + 1] = sorting[k];
-          sorting[k] = a;
-        }
-      }
-    }
-    sorted[i] = sorting[1];
-  }
-  pitches = sorted;
-}
-	```
+				
+	<img src="Filtro de mediana.jpg" width="640" align="center">
 
   * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*
     (AMDF), etc.
