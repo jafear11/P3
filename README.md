@@ -39,6 +39,8 @@ void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) co
 
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la biblioteca matplotlib de Python.
+	
+	INSERTAAAAR !!!
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
@@ -112,6 +114,8 @@ bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
 
 	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
 		en esta práctica es de 15 ms.
+		  
+		  INSERTAAAR GRAAFICA!!
 
       - Use el estimador de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
@@ -119,10 +123,15 @@ bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const
      
 		Aunque puede usar el propio Wavesurfer para obtener la representación, se valorará
 	 	el uso de alternativas de mayor calidad (particularmente Python).
+		  
+		  INSETAAR GRAFICA!!
   
   * Optimice los parámetros de su sistema de estimación de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
+		  
+<img width="376" alt="image" src="https://user-images.githubusercontent.com/100561275/163777778-8e52a046-459a-42d1-a4e3-deefa209efec.png">
+
 
 Ejercicios de ampliación
 ------------------------
@@ -136,6 +145,8 @@ Ejercicios de ampliación
 
   * Inserte un *pantallazo* en el que se vea el mensaje de ayuda del programa y un ejemplo de utilización
     con los argumentos añadidos.
+	
+	FER DOCOOOPT!!!!
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de estimación
   de pitch.
@@ -220,6 +231,13 @@ void median_filter(vector<float> &pitches)
 
   Incluya, a continuación, una explicación de las técnicas incorporadas al estimador. Se valorará la
   inclusión de gráficas, tablas, código o cualquier otra cosa que ayude a comprender el trabajo realizado.
+	
+	Hemos utilizado la técnica de preprocesado center clipping y la técnica de postprocesado filtro de mediana. Previamente, también hemos normalizado la señal.
+	El center clipping consiste básicamente en anular los valores de la señal de magnitud pequeña. Con ello conseguimos dos cosas: al introducir una distorsión no lineal, aumentamos la intensidad de los armónicos de orden elevado y al poner a cero los instantes de tiempo donde la señal tiene amplitud menor, aumentamos robustez frente al ruido. A continuación adjuntamos el código del center clipping. Cabe comentar que curiosamente, pese a que hemos implementado el center clipping con offset, la fórmula utilizada no es exactamente la propuesta en el enunciado de la práctica, puesto que de esta forma el detector nos daba mejor SCORE total. Como podemos ver en el código adjunto más arriba, en el último else, se le suma el umbral a la muestra actual, en vez de restárselo.
+	El filtro de mediana es un filtro no lineal que se basa en calcular el valor mediano en una ventana (de longitud 3 en nuestro caso) centrada en cada instante de tiempo. Lo usamos principalmente para evitar errores groseros en la estimación de la frecuencia de pitch. 
+	
+
+
 
   También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
   por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
