@@ -15,7 +15,7 @@ Ejercicios básicos
 
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
    <img src="Autocorrelacion.jpg" width="640" align="center">
-	
+
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
      unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
 	 autocorrelación de la señal y la posición del primer máximo secundario.
@@ -27,47 +27,8 @@ Ejercicios básicos
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
-     <img src="Compute pitch.jpg" width="640" align="center">
-	
-	
-float PitchAnalyzer::compute_pitch(vector<float> &x) const
-  {
-    if (x.size() != frameLen)
-      return -1.0F;
+     ![Compute pitch](https://user-images.githubusercontent.com/99867500/163838816-7780705d-3d7c-482b-b192-782468658500.jpg)
 
-    for (unsigned int i = 0; i < x.size(); ++i)
-      x[i] *= window[i];
-    clip_center(x, 0.01);
-    normalize(x);
-
-    vector<float> r(npitch_max);
-
-    autocorrelation(x, r);
-
-    vector<float>::const_iterator iR = r.begin(), iRMax = iR;
-    for (iR = iRMax = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++)
-    {
-      if (*iR > *iRMax)
-      {
-        iRMax = iR;
-      }
-    }
-    unsigned int lag = iRMax - r.begin();
-
-    float pot = 10 * log10(r[0]);
-
-#if 0
-    if (r[0] > 0.0F)
-      cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
-#endif
-
-    if (unvoiced(pot, r[1] / r[0], r[lag] / r[0]))
-      return 0;
-    else
-      return (float)samplingFreq / (float)lag;
-  }
-}
-```	
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 	
 <img width="608" alt="image" src="https://user-images.githubusercontent.com/100561275/163795027-ed273760-6ea1-4d6e-9391-59c779f5534b.png">
