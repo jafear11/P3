@@ -86,7 +86,7 @@ float PitchAnalyzer::compute_pitch(vector<float> &x) const
 ```	
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 	
-<img width="608" alt="image" src="https://user-images.githubusercontent.com/100561275/163794798-538804e4-076b-46a1-9321-28e4f70f607d.png">
+<img width="608" alt="image" src="https://user-images.githubusercontent.com/100561275/163795027-ed273760-6ea1-4d6e-9391-59c779f5534b.png">
 
 		  
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del estimador de pitch. El 
